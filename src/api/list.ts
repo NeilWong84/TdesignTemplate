@@ -1,10 +1,10 @@
 import { request } from '@/utils/request';
 import type { CardListResult, ListResult } from '@/api/model/listModel';
-
-const Api = {
-  BaseList: '/get-list',
-  CardList: '/get-card-list',
-};
+// 枚举 API访问地址
+enum Api {
+  BaseList = '/get-list',
+  CardList = '/get-card-list',
+}
 
 export function getList() {
   return request.get<ListResult>({

@@ -1,0 +1,24 @@
+.payment-col {
+    display: flex;
+
+    .trend-container {
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+    }
+  }
+
+  .left-operation-container {
+    padding: 6px 0;
+    margin-bottom: 16px;
+
+    .selected-count {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--td-text-color-secondary);
+    }
+  }
+
+  .search-input {
+    width: 360px;
+  }

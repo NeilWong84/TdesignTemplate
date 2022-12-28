@@ -17,9 +17,10 @@
       </t-row>
       <t-table
         :data="data"
-        :columns="COLUMNS"
-        :row-key="rowKey"
+        :columns="columnsFields"
+        row-key="index"
         vertical-align="top"
+        height="500"
         :hover="true"
         :pagination="pagination"
         :selected-row-keys="selectedRowKeys"
@@ -51,7 +52,7 @@
         </template>
 
         <template #op="slotProps">
-          <a class="t-button-link" @click="handleClickDetail()">详情</a>
+          <a class="t-button-link" @click="handleClickDetail">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
         </template>
       </t-table>
@@ -69,53 +70,40 @@
 
 <script lang="ts">
 export default {
-  name: 'ListBase',
+  name: 'ListBase', // keep-alive
 };
 </script>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
 import { SearchIcon } from 'tdesign-icons-vue-next';
-import { MessagePlugin } from 'tdesign-vue-next';
-
 import { CONTRACT_STATUS, CONTRACT_TYPES, CONTRACT_PAYMENT_TYPES } from '@/constants';
-import Trend from '@/components/trend/index.vue';
-import { getList } from '@/api/list';
 import { useSettingStore } from '@/store';
 import { prefix } from '@/config/global';
-
-import { COLUMNS } from './constants';
+import { responsive } from './responsive';
 
 const store = useSettingStore();
 
-const data = ref([]);
-const pagination = ref({
-  defaultPageSize: 20,
-  total: 100,
-  defaultCurrent: 1,
-});
+const {
+  data,
+  columnsFields,
+  deleteIdx,
+  pagination,
+  searchValue,
+  dataLoading,
+  confirmVisible,
+  selectedRowKeys,
+  fetchData,
+  onConfirmDelete,
+  onCancel,
+  rehandleSelectChange,
+  rehandlePageChange,
+  rehandleChange,
+  handleClickDetail,
+  handleSetupContract,
+  handleClickDelete,
+} = responsive();
 
-const searchValue = ref('');
-
-const dataLoading = ref(false);
-const fetchData = async () => {
-  dataLoading.value = true;
-  try {
-    const { list } = await getList();
-    data.value = list;
-    pagination.value = {
-      ...pagination.value,
-      total: list.length,
-    };
-  } catch (e) {
-    console.log(e);
-  } finally {
-    dataLoading.value = false;
-  }
-};
-
-const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
     const { name } = data.value[deleteIdx.value];
@@ -124,59 +112,6 @@ const confirmBody = computed(() => {
   return '';
 });
 
-onMounted(() => {
-  fetchData();
-});
-
-const confirmVisible = ref(false);
-
-const selectedRowKeys = ref([1, 2]);
-
-const router = useRouter();
-
-const resetIdx = () => {
-  deleteIdx.value = -1;
-};
-
-const onConfirmDelete = () => {
-  // 真实业务请发起请求
-  data.value.splice(deleteIdx.value, 1);
-  pagination.value.total = data.value.length;
-  const selectedIdx = selectedRowKeys.value.indexOf(deleteIdx.value);
-  if (selectedIdx > -1) {
-    selectedRowKeys.value.splice(selectedIdx, 1);
-  }
-  confirmVisible.value = false;
-  MessagePlugin.success('删除成功');
-  resetIdx();
-};
-
-const onCancel = () => {
-  resetIdx();
-};
-
-const rowKey = 'index';
-
-const rehandleSelectChange = (val: number[]) => {
-  selectedRowKeys.value = val;
-};
-const rehandlePageChange = (curr, pageInfo) => {
-  console.log('分页变化', curr, pageInfo);
-};
-const rehandleChange = (changeParams, triggerAndData) => {
-  console.log('统一Change', changeParams, triggerAndData);
-};
-const handleClickDetail = () => {
-  router.push('/detail/base');
-};
-const handleSetupContract = () => {
-  router.push('/form/base');
-};
-const handleClickDelete = (row: { rowIndex: any }) => {
-  deleteIdx.value = row.rowIndex;
-  confirmVisible.value = true;
-};
-
 const headerAffixedTop = computed(
   () =>
     ({
@@ -184,31 +119,12 @@ const headerAffixedTop = computed(
       container: `.${prefix}-layout`,
     } as any),
 );
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style lang="less" scoped>
-.payment-col {
-  display: flex;
-
-  .trend-container {
-    display: flex;
-    align-items: center;
-    margin-left: 8px;
-  }
-}
-
-.left-operation-container {
-  padding: 6px 0;
-  margin-bottom: 16px;
-
-  .selected-count {
-    display: inline-block;
-    margin-left: 8px;
-    color: var(--td-text-color-secondary);
-  }
-}
-
-.search-input {
-  width: 360px;
-}
+@import url('./index.scss');
 </style>

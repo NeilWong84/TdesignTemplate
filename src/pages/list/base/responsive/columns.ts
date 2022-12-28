@@ -1,6 +1,6 @@
 import { PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
 
-export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
+export const columnsFields: PrimaryTableCol<TableRowData>[] = [
   { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
   {
     title: '合同名称',
