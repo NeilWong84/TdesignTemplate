@@ -71,6 +71,8 @@
         :row-key="rowKey"
         :vertical-align="verticalAlign"
         :hover="hover"
+        :stripe="true"
+        :bordered="true"
         :pagination="pagination"
         :loading="dataLoading"
         :header-affixed-top="headerAffixedTop"

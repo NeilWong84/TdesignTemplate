@@ -18,10 +18,11 @@
       <t-table
         :data="data"
         :columns="columnsFields"
-        row-key="index"
-        vertical-align="top"
-        height="500"
+        :row-key="rowKey"
         :hover="true"
+        max-height="500"
+        :bordered="true"
+        cell-empty-content="-"
         :pagination="pagination"
         :selected-row-keys="selectedRowKeys"
         :loading="dataLoading"
@@ -30,18 +31,22 @@
         @change="rehandleChange"
         @select-change="rehandleSelectChange"
       >
-        <template #status="{ row }">
+        <!-- <template #status="{ row }">
           <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 审核失败 </t-tag>
           <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 待审核 </t-tag>
           <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 待履行 </t-tag>
           <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 履行中 </t-tag>
           <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 已完成 </t-tag>
-        </template>
+        </template> -->
+        <!--
         <template #contractType="{ row }">
           <p v-if="row.contractType === CONTRACT_TYPES.MAIN">审核失败</p>
           <p v-if="row.contractType === CONTRACT_TYPES.SUB">待审核</p>
           <p v-if="row.contractType === CONTRACT_TYPES.SUPPLEMENT">待履行</p>
         </template>
+        -->
+
+        <!--
         <template #paymentType="{ row }">
           <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
             付款<trend class="dashboard-item-trend" type="up" />
@@ -50,7 +55,8 @@
             收款<trend class="dashboard-item-trend" type="down" />
           </div>
         </template>
-
+        --->
+        <!-- 操作列插槽:有业务逻辑,需要从Composed Method获取-->
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
@@ -77,12 +83,12 @@ export default {
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
 import { SearchIcon } from 'tdesign-icons-vue-next';
-import { CONTRACT_STATUS, CONTRACT_TYPES, CONTRACT_PAYMENT_TYPES } from '@/constants';
 import { useSettingStore } from '@/store';
 import { prefix } from '@/config/global';
 import { responsive } from './responsive';
 
 const store = useSettingStore();
+const rowKey = 'index';
 
 const {
   data,
