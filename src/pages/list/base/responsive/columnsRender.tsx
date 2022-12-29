@@ -18,11 +18,11 @@ export function statusFormat(h, { row }) {
 
 export function paymentFormat(h, { row }) {
   const paymentMap = {
-    0: { label: '收款', color: 'success' },
-    1: { label: '付款', color: 'warning' },
+    0: { label: '收款', color: 'success', style: 'color:var(--td-success-color)' },
+    1: { label: '付款', color: 'warning', style: 'color:var(--td-warning-color)' },
   };
 
-  return <span>{paymentMap[row.paymentType].label}</span>;
+  return <span style={paymentMap[row.paymentType].style}>{paymentMap[row.paymentType].label}</span>;
 }
 
 export function typeFormat(h, { row }) {
@@ -36,5 +36,22 @@ export function typeFormat(h, { row }) {
     <t-tag theme={typeMap[row.contractType].theme} variant="light">
       {typeMap[row.contractType].label}
     </t-tag>
+  );
+}
+
+export function titleStyle(h, { colIndex }) {
+  const titleMap = {
+    0: { label: '-', style: 'font-wight:bold;color:black' },
+    1: { label: '合同名称', style: 'font-wight: bold;color:black' },
+    2: { label: '合同状态', style: 'font-wight: bold;color:black' },
+    3: { label: '合同编号', style: 'font-wight: bold;color:black' },
+    4: { label: '合同类型', style: 'font-wight: bold;color:black' },
+    5: { label: '收付类型', style: 'font-wight: bold;color:black' },
+    6: { label: '合同金额', style: 'font-wight: bold;color:black' },
+  };
+  return (
+    <span>
+      <b style={titleMap[colIndex].style}>{titleMap[colIndex].label}</b>
+    </span>
   );
 }

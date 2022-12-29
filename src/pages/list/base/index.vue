@@ -31,31 +31,6 @@
         @change="rehandleChange"
         @select-change="rehandleSelectChange"
       >
-        <!-- <template #status="{ row }">
-          <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 审核失败 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 待审核 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 待履行 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 履行中 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 已完成 </t-tag>
-        </template> -->
-        <!--
-        <template #contractType="{ row }">
-          <p v-if="row.contractType === CONTRACT_TYPES.MAIN">审核失败</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUB">待审核</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUPPLEMENT">待履行</p>
-        </template>
-        -->
-
-        <!--
-        <template #paymentType="{ row }">
-          <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
-            付款<trend class="dashboard-item-trend" type="up" />
-          </div>
-          <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.RECEIPT" class="payment-col">
-            收款<trend class="dashboard-item-trend" type="down" />
-          </div>
-        </template>
-        --->
         <!-- 操作列插槽:有业务逻辑,需要从Composed Method获取-->
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail">详情</a>

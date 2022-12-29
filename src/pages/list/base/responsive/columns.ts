@@ -1,5 +1,5 @@
 import { PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
-import { statusFormat, paymentFormat, typeFormat } from './columnsRender';
+import { statusFormat, paymentFormat, typeFormat, titleStyle } from './columnsRender';
 
 export const columnsFields: PrimaryTableCol<TableRowData>[] = [
   {
@@ -9,40 +9,40 @@ export const columnsFields: PrimaryTableCol<TableRowData>[] = [
     fixed: 'left',
   },
   {
-    title: '合同名称',
+    title: titleStyle,
     align: 'left',
     width: 300,
     colKey: 'name',
     fixed: 'left',
   },
   {
-    title: '合同状态',
+    title: titleStyle,
     colKey: 'status',
     width: 200,
     cell: statusFormat,
   },
   {
-    title: '合同编号',
+    title: titleStyle,
     width: 200,
     ellipsis: true,
     colKey: 'no',
   },
   {
-    title: '合同类型',
+    title: titleStyle,
     width: 200,
     ellipsis: true,
     colKey: 'contractType',
     cell: typeFormat,
   },
   {
-    title: '收付类型',
+    title: titleStyle,
     width: 200,
     ellipsis: true,
     colKey: 'paymentType',
     cell: paymentFormat,
   },
   {
-    title: '合同金额 (元)',
+    title: titleStyle,
     width: 200,
     ellipsis: true,
     colKey: 'amount',

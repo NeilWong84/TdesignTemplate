@@ -8,9 +8,10 @@ const responsive = () => {
   const router = useRouter();
   const data = ref([]);
   const pagination = ref({
-    defaultPageSize: 20,
+    defaultPageSize: 10,
     total: 100,
     defaultCurrent: 1,
+    showJumper: true,
   });
 
   const deleteIdx = ref(-1);
