@@ -2,9 +2,10 @@
 
 </p>
 
-<p style="display:flex;justify-content:center;font-size:38px;color:#0052d9">
-    vue-easy-list
-</p>
+<div align="center">
+	<img src="https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png"/>
+	<h1>vue-easy-list</h1>
+</div>
 
 <p align="center">
   <a href="https://nodejs.org/en/about/releases/">
