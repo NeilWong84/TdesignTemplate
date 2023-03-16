@@ -1,6 +1,6 @@
 {
-  "name": "tdesign-vue-next-starter",
-  "version": "0.6.1",
+  "name": "vue-easy-page",
+  "version": "0.0.1",
   "scripts": {
     "dev:mock": "vite --open --mode mock",
     "dev": "vite --open --mode development",

@@ -9,17 +9,19 @@
           <t-button theme="default" shape="square" variant="text" @click="changeCollapsed">
             <t-icon class="collapsed-icon" name="view-list" />
           </t-button>
-          <search :layout="layout" />
+          <!-- <search :layout="layout" /> -->
+          <div class="breadcumb-container"><breadcrumb /></div>
         </div>
       </template>
+
       <template v-if="layout !== 'side'" #default>
         <menu-content class="header-menu" :nav-data="menu" />
       </template>
+
       <template #operations>
         <div class="operations-container">
           <!-- 搜索框 -->
           <search v-if="layout !== 'side'" :layout="layout" />
-
           <!-- 全局通知 -->
           <notice />
 
@@ -76,6 +78,7 @@ import type { MenuRoute } from '@/types/interface';
 import Notice from './Notice.vue';
 import Search from './Search.vue';
 import MenuContent from './MenuContent.vue';
+import Breadcrumb from './Breadcrumb.vue';
 
 const props = defineProps({
   theme: {
@@ -215,6 +218,15 @@ const navToHelper = () => {
     &.general {
       margin-right: 16px;
     }
+  }
+}
+
+.breadcumb-container {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  .t-breadcrumb {
+    margin-bottom: 0;
   }
 }
 
