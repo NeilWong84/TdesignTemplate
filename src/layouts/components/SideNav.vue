@@ -1,8 +1,10 @@
 <template>
   <div :class="sideNavCls">
     <t-menu :class="menuCls" :theme="theme" :value="active" :collapsed="collapsed" :default-expanded="defaultExpanded">
+      <!--可折叠的时候-->
       <template #logo>
         <span v-if="showLogo" :class="`${prefix}-side-nav-logo-wrapper`" @click="goHome">
+          <!-- 动态logo -->
           <component :is="getLogo()" :class="`${prefix}-side-nav-logo-${collapsed ? 't' : 'tdesign'}-logo`" />
         </span>
       </template>
@@ -112,6 +114,7 @@ onMounted(() => {
   window.onresize = () => {
     autoCollapsed();
   };
+  console.log('sidebar', props.showLogo);
 });
 
 const goHome = () => {

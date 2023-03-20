@@ -2,20 +2,23 @@
   <div :class="layoutCls">
     <t-head-menu :class="menuCls" :theme="theme" expand-type="popup" :value="active">
       <template #logo>
+        <!-- 通栏的时候显示自定义logo-->
         <span v-if="showLogo" class="header-logo-container" @click="handleNav('/dashboard/base')">
+          <!-- <img height="28" src="https://tdesign.gtimg.com/site/baseLogo-light.png" alt="logo" /> -->
           <logo-full class="t-logo" />
         </span>
-        <div v-else class="header-operate-left">
+      </template>
+
+      <template #default>
+        <!--side 模式有折叠和面包屑-->
+        <div v-if="layout === 'side'" class="header-operate-left">
           <t-button theme="default" shape="square" variant="text" @click="changeCollapsed">
             <t-icon class="collapsed-icon" name="view-list" />
           </t-button>
           <!-- <search :layout="layout" /> -->
           <div class="breadcumb-container"><breadcrumb /></div>
         </div>
-      </template>
-
-      <template v-if="layout !== 'side'" #default>
-        <menu-content class="header-menu" :nav-data="menu" />
+        <menu-content v-else class="header-menu" :nav-data="menu" />
       </template>
 
       <template #operations>
@@ -66,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import { useSettingStore } from '@/store';
@@ -109,6 +112,11 @@ const props = defineProps({
     type: Number,
     default: 3,
   },
+});
+
+/* 加载的时候没有显示logo */
+onMounted(() => {
+  console.log(props.showLogo);
 });
 
 const router = useRouter();
